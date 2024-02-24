@@ -2,6 +2,15 @@ import numpy as np
 
 
 def get_solution(parameters, initial_condition, end_time, number_of_intervals):
+    """
+    Данная функция решает систему дифференциально-алгебраических уравнений динамики математического маятника.
+
+    :param parameters = [m, L] - характеристики математического маятника.
+    :param initial_condition = [x_0, y_0, v_x0, v_y0]
+    :param end_time: конечное время расчета.
+    :param number_of_intervals: количество интервалов на которые разбивается промежуток [0, end_time]
+    :return: u = [x,y,v_x,v_y,T]
+    """
     m = parameters[0]
     L = parameters[1]
     x_0 = initial_condition[0]
@@ -12,7 +21,7 @@ def get_solution(parameters, initial_condition, end_time, number_of_intervals):
     def g(t):
         return 9.81 + 0.05 * np.sin(2 * np.pi * t)
 
-    T_0 = m * L * (v_x0 ** 2 + v_y0 ** 2 - y_0 * g(0)) / (x_0 ** 2 + y_0 ** 2)
+    T_0 = m / L * (v_x0 ** 2 + v_y0 ** 2 - y_0 * g(0))
 
     def f(vector_u, t):
         vector_f = np.zeros(5)
